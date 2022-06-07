@@ -9,7 +9,16 @@ const path = require('path')
 
 const app = express()
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+    //To allow requests from client
+  origin: [
+    "http://localhost:3000",
+    "http://127.0.0.1",
+    "http://104.142.122.231",
+  ],
+  credentials: true,
+  exposedHeaders: ["set-cookie"],
+}))
 app.use(cookieParser())
 app.use(fileUpload({
     useTempFiles: true

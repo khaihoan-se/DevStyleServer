@@ -80,11 +80,11 @@ const userCtrl = {
     },
     getAccessToken: (req, res) => {
         try {
-            const rf_token = req.cookies.refreshtoken
-            if(!rf_token) return res.status(400).json({msg: "Please login now!"})
+            const refreshtoken = req.cookies.refreshtoken;
+            if(!refreshtoken) return res.status(401).json({msg: "Please 1111"})
 
-            jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-                if(err) return res.status(400).json({msg: "Please login now!"})
+            jwt.verify(refreshtoken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+                if(err) return res.status(400).json({msg: "Please ?????!"})
 
                 const access_token = createAccessToken({id: user.id})
                 res.json({access_token})
@@ -200,6 +200,7 @@ function validatePassword(password) {
 const createActivationToken = (payload) => {
     return jwt.sign(payload, process.env.ACTIVATION_TOKEN_SECRET, {expiresIn: '5m'})
 }
+
 const createAccessToken = (payload) => {
     return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '15m'})
 }
